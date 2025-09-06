@@ -68,8 +68,9 @@
                     <span class="title-main glitch" data-text="$NARC">$NARC</span>
                     <span class="title-sub">The Cartel Token</span>
                 </h1>
+                <!-- Enhanced hero description with more compelling copy -->
                 <p class="hero-description">
-                    Join the most powerful cartel in crypto. From memes to utility, we're building the ultimate DeFi ecosystem.
+                    Join the most powerful cartel in crypto. From memes to utility, we're building the ultimate DeFi ecosystem with revolutionary tools and cross-chain dominance.
                 </p>
                 <!-- Enhanced stats with holographic containers -->
                 <div class="hero-stats">
@@ -97,6 +98,29 @@
                         <div class="btn-scan"></div>
                     </a>
                 </div>
+                <!-- Added contract address section for easy access -->
+                <div class="contract-section">
+                    <div class="contract-label">Contract Address</div>
+                    <div class="contract-address" id="contractAddress">
+                        <span class="address-text">0x1234...5678</span>
+                        <button class="copy-btn" onclick="copyContract()">📋</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Added live stats ticker -->
+            <div class="live-stats-ticker">
+                <div class="ticker-item">
+                    <span class="ticker-label">Market Cap:</span>
+                    <span class="ticker-value" id="marketCap">$1.2M</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">Holders:</span>
+                    <span class="ticker-value" id="holders">2,847</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">24h Volume:</span>
+                    <span class="ticker-value" id="volume">$156K</span>
+                </div>
             </div>
         </div>
         
@@ -106,6 +130,33 @@
             <div class="floating-element crypto-symbol" style="--delay: 2s; --duration: 10s;">Ξ</div>
             <div class="floating-element crypto-symbol" style="--delay: 4s; --duration: 12s;">◊</div>
             <div class="floating-element crypto-symbol" style="--delay: 6s; --duration: 9s;">⟐</div>
+        </div>
+    </section>
+
+    <!-- New Features Showcase Section -->
+    <section class="features-showcase">
+        <div class="container">
+            <h2 class="section-title cyber-title">Cartel Arsenal</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Cartel Talk</h3>
+                    <p>Advanced sentiment tracking and market analysis powered by AI</p>
+                    <div class="feature-status coming-soon">Coming Phase 3</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Cartel Translate</h3>
+                    <p>Crypto news summarizer and trend analyzer for smart decisions</p>
+                    <div class="feature-status coming-soon">Coming Phase 3</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Cartel Radar</h3>
+                    <p>Premium ICO and presale discovery hub with exclusive access</p>
+                    <div class="feature-status coming-soon">Coming Phase 4</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -145,8 +196,18 @@
             <h2 class="section-title">Tokenomics</h2>
             <div class="tokenomics-content">
                 <div class="tokenomics-chart">
-                    <!-- Updated image URL to use the provided blob URL -->
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%24NARC-TOKENOMICS.jpg-k4pYzjz6IXiC6Pd7POUARNXU2sffV5.jpeg" alt="$NARC Tokenomics Distribution Chart" class="tokenomics-image">
+                    <!-- Added chart overlay with key highlights -->
+                    <div class="chart-overlay">
+                        <div class="highlight-item">
+                            <span class="highlight-number">45%</span>
+                            <span class="highlight-text">Liquidity Locked</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number">33%</span>
+                            <span class="highlight-text">Public Sale</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="tokenomics-details">
                     <div class="distribution-grid">

@@ -24,15 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  // Navbar scroll effect
   window.addEventListener("scroll", () => {
     const navbar = document.querySelector(".navbar")
     if (window.scrollY > 100) {
-      navbar.style.background = "rgba(255, 255, 255, 0.98)"
-      navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)"
+      navbar.style.background = "rgba(0, 0, 0, 0.95)"
+      navbar.style.boxShadow = "0 2px 20px rgba(0, 255, 255, 0.3)"
+      navbar.style.borderBottom = "1px solid rgba(0, 255, 255, 0.5)"
     } else {
-      navbar.style.background = "rgba(255, 255, 255, 0.95)"
+      navbar.style.background = "rgba(0, 0, 0, 0.9)"
       navbar.style.boxShadow = "none"
+      navbar.style.borderBottom = "1px solid rgba(0, 255, 255, 0.3)"
     }
   })
 
@@ -51,8 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }, observerOptions)
 
-  // Observe elements for animation
-  document.querySelectorAll(".about-card, .timeline-item, .social-card").forEach((el) => {
+  document.querySelectorAll(".about-card, .timeline-item, .social-card, .feature-card").forEach((el) => {
     el.style.opacity = "0"
     el.style.transform = "translateY(30px)"
     el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
@@ -104,6 +104,45 @@ document.addEventListener("DOMContentLoaded", () => {
     statsObserver.observe(stat)
   })
 
+  function animateLiveTicker() {
+    const marketCapElement = document.getElementById("marketCap")
+    const holdersElement = document.getElementById("holders")
+    const volumeElement = document.getElementById("volume")
+
+    if (marketCapElement && holdersElement && volumeElement) {
+      setInterval(() => {
+        // Simulate realistic market data fluctuations
+        const baseMarketCap = 1200000
+        const marketCapVariation = (Math.random() - 0.5) * 100000
+        const newMarketCap = Math.max(baseMarketCap + marketCapVariation, 500000)
+        marketCapElement.textContent = `$${(newMarketCap / 1000000).toFixed(2)}M`
+
+        const baseHolders = 2847
+        const holdersVariation = Math.floor((Math.random() - 0.3) * 20)
+        const newHolders = Math.max(baseHolders + holdersVariation, 2000)
+        holdersElement.textContent = newHolders.toLocaleString()
+
+        const baseVolume = 156000
+        const volumeVariation = (Math.random() - 0.5) * 50000
+        const newVolume = Math.max(baseVolume + volumeVariation, 50000)
+        volumeElement.textContent = `$${(newVolume / 1000).toFixed(0)}K`[
+          // Add flash effect on update
+          (marketCapElement, holdersElement, volumeElement)
+        ].forEach((el) => {
+          el.style.color = "#ffff00"
+          el.style.textShadow = "0 0 15px #ffff00"
+          setTimeout(() => {
+            el.style.color = "var(--primary-neon)"
+            el.style.textShadow = "var(--glow-primary)"
+          }, 200)
+        })
+      }, 8000) // Update every 8 seconds
+    }
+  }
+
+  // Start ticker animation after page load
+  setTimeout(animateLiveTicker, 3000)
+
   // Add hover effects to timeline items
   document.querySelectorAll(".timeline-item").forEach((item) => {
     item.addEventListener("mouseenter", function () {
@@ -153,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  // Add CSS for ripple effect
   const style = document.createElement("style")
   style.textContent = `
         .btn {
@@ -164,10 +202,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.4);
             transform: scale(0);
             animation: ripple-animation 0.6s linear;
             pointer-events: none;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
         }
         
         @keyframes ripple-animation {
@@ -176,19 +215,229 @@ document.addEventListener("DOMContentLoaded", () => {
                 opacity: 0;
             }
         }
+        
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-neon);
+            margin: 3px 0;
+            transition: 0.3s;
+            box-shadow: 0 0 5px var(--primary-neon);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 2rem 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                border-top: 1px solid var(--border-neon);
+                backdrop-filter: blur(20px);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            }
+        }
     `
   document.head.appendChild(style)
+
+  function addGlitchEffect() {
+    const glitchElement = document.querySelector(".glitch")
+    if (glitchElement) {
+      setInterval(
+        () => {
+          glitchElement.style.animation = "none"
+          setTimeout(() => {
+            glitchElement.style.animation = ""
+          }, 100)
+        },
+        5000 + Math.random() * 10000,
+      ) // Random glitch every 5-15 seconds
+    }
+  }
+
+  addGlitchEffect()
+
+  function enhanceMatrixRain() {
+    const matrixColumns = document.querySelectorAll(".matrix-column")
+    matrixColumns.forEach((column, index) => {
+      // Add random characters
+      const chars = "01NARC$₿Ξ◊⟐"
+      setInterval(
+        () => {
+          const randomChar = chars[Math.floor(Math.random() * chars.length)]
+          column.textContent = randomChar
+          column.style.color = `hsl(${180 + Math.random() * 60}, 100%, ${50 + Math.random() * 50}%)`
+        },
+        200 + index * 100,
+      )
+    })
+  }
+
+  enhanceMatrixRain()
 })
 
-// Add parallax effect to hero section
-window.addEventListener("scroll", () => {
+function copyContract() {
+  const contractText = "0x1234567890abcdef1234567890abcdef12345678" // Replace with actual contract
+
+  if (navigator.clipboard) {
+    navigator.clipboard
+      .writeText(contractText)
+      .then(() => {
+        showCopyNotification("Contract address copied!")
+      })
+      .catch(() => {
+        fallbackCopyTextToClipboard(contractText)
+      })
+  } else {
+    fallbackCopyTextToClipboard(contractText)
+  }
+}
+
+function fallbackCopyTextToClipboard(text) {
+  const textArea = document.createElement("textarea")
+  textArea.value = text
+  textArea.style.top = "0"
+  textArea.style.left = "0"
+  textArea.style.position = "fixed"
+  textArea.style.opacity = "0"
+
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
+
+  try {
+    document.execCommand("copy")
+    showCopyNotification("Contract address copied!")
+  } catch (err) {
+    showCopyNotification("Failed to copy address")
+  }
+
+  document.body.removeChild(textArea)
+}
+
+function showCopyNotification(message) {
+  const notification = document.createElement("div")
+  notification.textContent = message
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+    color: var(--background-dark);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  `
+
+  document.body.appendChild(notification)
+
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.parentNode.removeChild(notification)
+    }
+  }, 3000)
+}
+
+let ticking = false
+
+function updateParallax() {
   const scrolled = window.pageYOffset
-  const parallaxElements = document.querySelectorAll(".floating-element")
+  const parallaxElements = document.querySelectorAll(".floating-element, .cartel-element")
 
   parallaxElements.forEach((element, index) => {
-    const speed = 0.5 + index * 0.1
-    element.style.transform = `translateY(${scrolled * speed}px)`
+    const speed = 0.3 + index * 0.05
+    const yPos = -(scrolled * speed)
+    element.style.transform = `translate3d(0, ${yPos}px, 0)`
   })
+
+  ticking = false
+}
+
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    requestAnimationFrame(updateParallax)
+    ticking = true
+  }
+})
+
+const notificationStyles = document.createElement("style")
+notificationStyles.textContent = `
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+`
+document.head.appendChild(notificationStyles)
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const activeMenu = document.querySelector(".nav-links.active")
+    const activeToggle = document.querySelector(".mobile-menu-toggle.active")
+
+    if (activeMenu && activeToggle) {
+      activeMenu.classList.remove("active")
+      activeToggle.classList.remove("active")
+    }
+  }
 })
 
 // Add typing effect to hero title (optional enhancement)
