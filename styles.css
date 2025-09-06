@@ -9,31 +9,18 @@
   --primary-color: #ea580c;
   --secondary-color: #f97316;
   --accent-color: #fb923c;
-  --background-color: #ffffff;
-  --surface-color: #fffbeb;
-  --text-primary: #1f2937;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-heavy: 0 10px 25px rgba(0, 0, 0, 0.15);
-  --border-radius: 12px;
-  --transition: all 0.3s ease;
-}
-
-body {
-  font-family: "Open Sans", sans-serif;
-  line-height: 1.6;
-  color: var(--text-primary);
-  background-color: var(--background-color);
-  overflow-x: hidden;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  --background-color: #0a0a0a;
+  --surface-color: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #888888;
+  --border-color: #333333;
+  --shadow-light: 0 1px 3px rgba(234, 88, 12, 0.3);
+  --shadow-medium: 0 4px 6px rgba(234, 88, 12, 0.4);
+  --shadow-heavy: 0 10px 25px rgba(234, 88, 12, 0.6);
+  --border-radius: 20px;
+  --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --glow: 0 0 20px rgba(234, 88, 12, 0.5);
 }
 
 /* Typography */
@@ -43,29 +30,52 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Orbitron", "Open Sans", sans-serif;
   font-weight: 700;
   line-height: 1.2;
+  text-shadow: 0 0 10px rgba(234, 88, 12, 0.5);
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   color: var(--text-primary);
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(234, 88, 12, 0.5), 0 0 20px rgba(234, 88, 12, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(234, 88, 12, 0.8), 0 0 30px rgba(234, 88, 12, 0.5), 0 0 40px rgba(234, 88, 12, 0.3);
+  }
 }
 
 .section-title::after {
   content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  border-radius: 2px;
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
+  border-radius: 3px;
+  animation: lineGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes lineGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(234, 88, 12, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(234, 88, 12, 1), 0 0 25px rgba(234, 88, 12, 0.7);
+  }
 }
 
 /* Navigation */
@@ -73,11 +83,33 @@ h6 {
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(234, 88, 12, 0.3);
   z-index: 1000;
   padding: 1rem 0;
   transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  animation: scanLine 3s linear infinite;
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .nav-container {
@@ -90,7 +122,7 @@ h6 {
 }
 
 .logo-text {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--primary-color);
@@ -148,26 +180,33 @@ h6 {
   display: flex;
   align-items: center;
   position: relative;
-  /* Updated background with cartel-themed elements */
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(31, 41, 55, 0.8) 100%),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="money" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="%23111827" opacity="0.1"/><text x="10" y="15" font-family="serif" font-size="12" fill="%23ea580c" opacity="0.3" text-anchor="middle">$</text></pattern></defs><rect width="100" height="100" fill="url(%23money)"/></svg>'),
-    radial-gradient(circle at 20% 80%, rgba(234, 88, 12, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.2) 0%, transparent 50%);
-  background-size: cover, 40px 40px, 100% 100%, 100% 100%;
+  background: radial-gradient(circle at 20% 80%, rgba(234, 88, 12, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 10, 0, 0.95) 100%);
   overflow: hidden;
+  perspective: 1000px;
 }
 
-.hero-background {
+.hero::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* Added cartel-themed background patterns */
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="cartel" patternUnits="userSpaceOnUse" width="60" height="60"><circle cx="30" cy="30" r="2" fill="%23ea580c" opacity="0.1"/><rect x="25" y="25" width="10" height="6" fill="%23f97316" opacity="0.05" rx="1"/></pattern></defs><rect width="200" height="200" fill="url(%23cartel)"/></svg>'),
-    linear-gradient(45deg, transparent 40%, rgba(234, 88, 12, 0.03) 50%, transparent 60%);
-  background-size: 120px 120px, 100% 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cartelGrid" patternUnits="userSpaceOnUse" width="20" height="20"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23ea580c" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23cartelGrid)"/></svg>');
+  background-size: 40px 40px;
+  animation: gridMove 15s linear infinite;
   z-index: 1;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(40px, 40px);
+  }
 }
 
 .hero-content {
@@ -177,28 +216,83 @@ h6 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  transform-style: preserve-3d;
 }
 
 .hero-title {
   font-size: 4rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
+  transform: rotateX(15deg);
+  animation: heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: rotateX(15deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(15deg) translateY(-10px);
+  }
 }
 
 .title-main {
   display: block;
   color: var(--primary-color);
-  font-weight: 800;
-  font-size: 5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 900;
+  font-size: 6rem;
+  text-shadow: 0 0 10px rgba(234, 88, 12, 0.8), 0 0 20px rgba(234, 88, 12, 0.6), 0 0 30px rgba(234, 88, 12, 0.4), 0 0
+    40px rgba(234, 88, 12, 0.2);
+  animation: titlePulse 4s ease-in-out infinite;
+  background: linear-gradient(45deg, #ea580c, #f97316, #fb923c, #ea580c);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titlePulse 4s ease-in-out infinite, gradientShift 8s ease infinite;
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .title-sub {
   display: block;
   color: var(--text-secondary);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  text-shadow: 0 0 15px rgba(204, 204, 204, 0.5);
+  animation: subtitleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes subtitleGlow {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 25px rgba(204, 204, 204, 0.8);
+  }
 }
 
 .hero-description {
@@ -227,7 +321,7 @@ h6 {
   font-size: 2.5rem;
   font-weight: 800;
   color: var(--primary-color);
-  font-family: "Work Sans", sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 .stat-label {
@@ -248,27 +342,60 @@ h6 {
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 1rem 2rem;
+  padding: 1.2rem 2.5rem;
   border-radius: var(--border-radius);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
   transition: var(--transition);
   cursor: pointer;
   border: none;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn-primary {
-  background: var(--primary-color);
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
   color: white;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--glow);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .btn-primary:hover {
-  background: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-heavy);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 30px rgba(234, 88, 12, 0.8), 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: buttonPulse 0.3s ease;
+}
+
+@keyframes buttonPulse {
+  0% {
+    transform: translateY(-3px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.1);
+  }
+  100% {
+    transform: translateY(-3px) scale(1.05);
+  }
 }
 
 .btn-secondary {
@@ -329,7 +456,6 @@ h6 {
   }
 }
 
-/* Added floating cartel-themed elements */
 .cartel-elements {
   position: fixed;
   top: 0;
@@ -343,65 +469,85 @@ h6 {
 
 .cartel-element {
   position: absolute;
-  opacity: 0.03;
-  animation: cartelFloat 15s ease-in-out infinite;
+  opacity: 0.1;
+  animation: cartelFloat3D 20s ease-in-out infinite;
+  font-size: 3rem;
+  text-shadow: 0 0 20px rgba(234, 88, 12, 0.5);
+  transform-style: preserve-3d;
 }
 
 .cartel-element:nth-child(1) {
   top: 10%;
   left: 5%;
-  font-size: 2rem;
   animation-delay: 0s;
 }
 
 .cartel-element:nth-child(2) {
   top: 30%;
   right: 10%;
-  font-size: 1.5rem;
-  animation-delay: 3s;
+  animation-delay: 5s;
 }
 
 .cartel-element:nth-child(3) {
   bottom: 20%;
   left: 15%;
-  font-size: 2.5rem;
-  animation-delay: 6s;
+  animation-delay: 10s;
 }
 
 .cartel-element:nth-child(4) {
   top: 60%;
   right: 20%;
-  font-size: 1.8rem;
-  animation-delay: 9s;
+  animation-delay: 15s;
 }
 
-@keyframes cartelFloat {
+@keyframes cartelFloat3D {
   0%,
   100% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.03;
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    opacity: 0.05;
   }
   25% {
-    transform: translateY(-30px) rotate(90deg);
-    opacity: 0.06;
+    transform: translateY(-50px) rotateX(90deg) rotateY(45deg) rotateZ(45deg);
+    opacity: 0.15;
   }
   50% {
-    transform: translateY(-60px) rotate(180deg);
-    opacity: 0.03;
+    transform: translateY(-100px) rotateX(180deg) rotateY(90deg) rotateZ(90deg);
+    opacity: 0.1;
   }
   75% {
-    transform: translateY(-30px) rotate(270deg);
-    opacity: 0.06;
+    transform: translateY(-50px) rotateX(270deg) rotateY(135deg) rotateZ(135deg);
+    opacity: 0.15;
   }
 }
 
 /* About Section */
 .about {
-  padding: 5rem 0;
-  /* Added subtle cartel background pattern */
-  background: linear-gradient(135deg, var(--background-color) 0%, #fffbeb 100%),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="diamonds" patternUnits="userSpaceOnUse" width="30" height="30"><polygon points="15,5 25,15 15,25 5,15" fill="%23ea580c" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23diamonds)"/></svg>');
-  background-size: 100% 100%, 60px 60px;
+  padding: 6rem 0;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hexagon" patternUnits="userSpaceOnUse" width="30" height="26"><polygon points="15,2 27,9 27,21 15,28 3,21 3,9" fill="none" stroke="%23ea580c" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23hexagon)"/></svg>');
+  background-size: 100% 100%, 60px 52px;
+  position: relative;
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.05) 0%, transparent 70%);
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .about-grid {
@@ -411,17 +557,38 @@ h6 {
 }
 
 .about-card {
-  background: var(--surface-color);
-  padding: 2rem;
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(40, 40, 40, 0.6));
+  padding: 2.5rem;
   border-radius: var(--border-radius);
   text-align: center;
   transition: var(--transition);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(234, 88, 12, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  border-radius: var(--border-radius);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .about-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-heavy);
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(234, 88, 12, 0.3);
+}
+
+.about-card:hover::before {
+  opacity: 1;
 }
 
 .card-icon {
@@ -442,11 +609,11 @@ h6 {
 
 /* Tokenomics Section */
 .tokenomics {
-  padding: 5rem 0;
-  /* Enhanced background with money/wealth themed patterns */
-  background: linear-gradient(135deg, var(--surface-color) 0%, #fff7ed 100%),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><defs><pattern id="wealth" patternUnits="userSpaceOnUse" width="40" height="40"><rect x="15" y="15" width="10" height="6" fill="%23f97316" opacity="0.03" rx="1"/><circle cx="20" cy="18" r="1" fill="%23ea580c" opacity="0.05"/></pattern></defs><rect width="80" height="80" fill="url(%23wealth)"/></svg>');
+  padding: 6rem 0;
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 10, 0, 0.95) 100%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="circuit" patternUnits="userSpaceOnUse" width="40" height="40"><circle cx="20" cy="20" r="2" fill="%23ea580c" opacity="0.1"/><path d="M0,20 Q10,10 20,20 T40,20 M20,0 Q30,10 20,20 T20,40" stroke="%23f97316" stroke-width="0.5" fill="none" opacity="0.05"/></pattern></defs><rect width="200" height="200" fill="url(%23circuit)"/></svg>');
   background-size: 100% 100%, 80px 80px;
+  position: relative;
 }
 
 .tokenomics-content {
@@ -465,7 +632,24 @@ h6 {
   max-width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-heavy);
+  box-shadow: 0 0 50px rgba(234, 88, 12, 0.4), 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: var(--transition);
+  animation: chartFloat 8s ease-in-out infinite;
+}
+
+@keyframes chartFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotateY(5deg);
+  }
+}
+
+.tokenomics-image:hover {
+  transform: scale(1.05) rotateY(10deg);
+  box-shadow: 0 0 80px rgba(234, 88, 12, 0.6), 0 30px 60px rgba(0, 0, 0, 0.8);
 }
 
 .distribution-grid {
@@ -478,16 +662,36 @@ h6 {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  background: white;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(40, 40, 40, 0.6));
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-light);
   transition: var(--transition);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.distribution-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.1), transparent);
+  transition: left 0.5s;
 }
 
 .distribution-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+  transform: translateX(10px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 88, 12, 0.3);
+  border-color: rgba(234, 88, 12, 0.5);
+}
+
+.distribution-item:hover::before {
+  left: 100%;
 }
 
 .distribution-color {
@@ -556,11 +760,10 @@ h6 {
 
 /* Roadmap Section */
 .roadmap {
-  padding: 5rem 0;
-  /* Added strategic/planning themed background */
-  background: var(--background-color),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><pattern id="strategy" patternUnits="userSpaceOnUse" width="60" height="60"><line x1="0" y1="30" x2="60" y2="30" stroke="%23ea580c" stroke-width="0.5" opacity="0.1"/><line x1="30" y1="0" x2="30" y2="60" stroke="%23ea580c" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="120" height="120" fill="url(%23strategy)"/></svg>');
-  background-size: 100% 100%, 120px 120px;
+  padding: 6rem 0;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tech" patternUnits="userSpaceOnUse" width="50" height="50"><rect x="20" y="20" width="10" height="10" fill="none" stroke="%23ea580c" stroke-width="0.5" opacity="0.1"/><circle cx="25" cy="25" r="3" fill="none" stroke="%23f97316" stroke-width="0.5" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23tech)"/></svg>');
+  background-size: 100% 100%, 100px 100px;
 }
 
 .roadmap-timeline {
@@ -575,9 +778,21 @@ h6 {
   left: 30px;
   top: 0;
   bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-  border-radius: 2px;
+  width: 6px;
+  background: linear-gradient(to bottom, var(--primary-color) 0%, var(--secondary-color) 50%, var(--primary-color) 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 20px rgba(234, 88, 12, 0.5);
+  animation: timelinePulse 4s ease-in-out infinite;
+}
+
+@keyframes timelinePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(234, 88, 12, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(234, 88, 12, 0.8), 0 0 60px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .timeline-item {
@@ -590,57 +805,50 @@ h6 {
   position: absolute;
   left: 15px;
   top: 0;
-  width: 30px;
-  height: 30px;
-  background: var(--primary-color);
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   z-index: 2;
+  box-shadow: 0 0 20px rgba(234, 88, 12, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
+  animation: markerGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes markerGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(234, 88, 12, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(234, 88, 12, 1), 0 4px 25px rgba(0, 0, 0, 0.6);
+  }
 }
 
 .timeline-content {
-  background: var(--surface-color);
-  padding: 2rem;
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(40, 40, 40, 0.7));
+  padding: 2.5rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-light);
-  border-left: 4px solid var(--primary-color);
+  box-shadow: var(--shadow-medium);
+  border-left: 6px solid var(--primary-color);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(234, 88, 12, 0.3);
+  transition: var(--transition);
 }
 
-.timeline-content h3 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.timeline-content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.timeline-content li {
-  padding: 0.5rem 0;
-  color: var(--text-secondary);
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.timeline-content li::before {
-  content: "▶";
-  position: absolute;
-  left: 0;
-  color: var(--secondary-color);
-  font-size: 0.8rem;
+.timeline-content:hover {
+  transform: translateX(15px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(234, 88, 12, 0.4);
+  border-left-color: var(--secondary-color);
 }
 
 /* Community Section */
 .community {
   padding: 5rem 0;
-  /* Added network/connection themed background */
   background: linear-gradient(135deg, var(--surface-color) 0%, #fff7ed 100%),
     url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="network" patternUnits="userSpaceOnUse" width="50" height="50"><circle cx="25" cy="25" r="1.5" fill="%23ea580c" opacity="0.1"/><line x1="25" y1="25" x2="45" y2="15" stroke="%23f97316" stroke-width="0.5" opacity="0.05"/><line x1="25" y1="25" x2="35" y2="45" stroke="%23f97316" stroke-width="0.5" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23network)"/></svg>');
   background-size: 100% 100%, 100px 100px;
@@ -764,7 +972,7 @@ h6 {
   }
 
   .title-main {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
   .title-sub {
@@ -786,7 +994,7 @@ h6 {
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .about-grid {
@@ -800,16 +1008,6 @@ h6 {
 
   .tokenomics-image {
     max-width: 90%;
-  }
-
-  .chart-circle {
-    width: 250px;
-    height: 250px;
-  }
-
-  .chart-center {
-    width: 170px;
-    height: 170px;
   }
 
   .timeline-item {
@@ -843,6 +1041,14 @@ h6 {
   .footer-links {
     justify-content: center;
   }
+
+  .hero::before {
+    background-size: 20px 20px;
+  }
+
+  .cartel-element {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -861,5 +1067,14 @@ h6 {
 
   .about-card {
     padding: 1.5rem;
+  }
+
+  .title-main {
+    font-size: 3rem;
+  }
+
+  .btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
   }
 }
