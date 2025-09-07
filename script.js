@@ -125,10 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const baseVolume = 156000
         const volumeVariation = (Math.random() - 0.5) * 50000
         const newVolume = Math.max(baseVolume + volumeVariation, 50000)
-        volumeElement.textContent = `$${(newVolume / 1000).toFixed(0)}K`[
-          // Add flash effect on update
-          (marketCapElement, holdersElement, volumeElement)
-        ].forEach((el) => {
+        volumeElement.textContent = `$${(newVolume / 1000).toFixed(0)}K`
+        
+        // Add flash effect on update
+        [marketCapElement, holdersElement, volumeElement].forEach((el) => {
           el.style.color = "#ffff00"
           el.style.textShadow = "0 0 15px #ffff00"
           setTimeout(() => {
@@ -192,93 +192,95 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
+  // Add ripple effect styles
   const style = document.createElement("style")
   style.textContent = `
-        .btn {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(0, 255, 255, 0.4);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            pointer-events: none;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-        }
-        
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        .mobile-menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-neon);
-            margin: 3px 0;
-            transition: 0.3s;
-            box-shadow: 0 0 5px var(--primary-neon);
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(0, 0, 0, 0.95);
-                flex-direction: column;
-                padding: 2rem 0;
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                border-top: 1px solid var(--border-neon);
-                backdrop-filter: blur(20px);
-            }
-            
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .nav-links a {
-                padding: 1rem 2rem;
-                border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-            }
-        }
-    `
+    .btn {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      pointer-events: none;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    }
+    
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary-neon);
+      margin: 3px 0;
+      transition: 0.3s;
+      box-shadow: 0 0 5px var(--primary-neon);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 2rem 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        border-top: 1px solid var(--border-neon);
+        backdrop-filter: blur(20px);
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .nav-links a {
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      }
+    }
+  `
   document.head.appendChild(style)
 
+  // Add glitch effect to title
   function addGlitchEffect() {
     const glitchElement = document.querySelector(".glitch")
     if (glitchElement) {
@@ -296,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addGlitchEffect()
 
+  // Enhance matrix rain with random characters
   function enhanceMatrixRain() {
     const matrixColumns = document.querySelectorAll(".matrix-column")
     matrixColumns.forEach((column, index) => {
@@ -313,8 +316,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   enhanceMatrixRain()
+
+  // Initialize meme gallery swiper
+  function initMemeSwiper() {
+    if (document.querySelector('.memeSwiper')) {
+      const memeSwiper = new Swiper('.memeSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        },
+      });
+    }
+  }
+
+  // Initialize meme swiper
+  initMemeSwiper();
+
+  // Handle meme form submission
+  const memeForm = document.getElementById('memeForm');
+  if (memeForm) {
+    memeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would typically handle the form submission to a server
+      alert('Meme submitted! (This would connect to a backend in production)');
+      closeMemeSubmission();
+      memeForm.reset();
+    });
+  }
 })
 
+// Contract address copy function
 function copyContract() {
   const contractText = "0x1234567890abcdef1234567890abcdef12345678" // Replace with actual contract
 
@@ -332,6 +381,7 @@ function copyContract() {
   }
 }
 
+// Fallback for older browsers
 function fallbackCopyTextToClipboard(text) {
   const textArea = document.createElement("textarea")
   textArea.value = text
@@ -354,6 +404,7 @@ function fallbackCopyTextToClipboard(text) {
   document.body.removeChild(textArea)
 }
 
+// Show copy notification
 function showCopyNotification(message) {
   const notification = document.createElement("div")
   notification.textContent = message
@@ -380,6 +431,7 @@ function showCopyNotification(message) {
   }, 3000)
 }
 
+// Parallax effect on scroll
 let ticking = false
 
 function updateParallax() {
@@ -402,6 +454,7 @@ window.addEventListener("scroll", () => {
   }
 })
 
+// Add notification animation styles
 const notificationStyles = document.createElement("style")
 notificationStyles.textContent = `
   @keyframes slideInRight {
@@ -428,6 +481,7 @@ notificationStyles.textContent = `
 `
 document.head.appendChild(notificationStyles)
 
+// Close menu with Escape key
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     const activeMenu = document.querySelector(".nav-links.active")
@@ -440,7 +494,7 @@ document.addEventListener("keydown", (e) => {
   }
 })
 
-// Add typing effect to hero title (optional enhancement)
+// Typing effect for hero title (optional)
 function typeWriter(element, text, speed = 100) {
   let i = 0
   element.textContent = ""
@@ -462,3 +516,70 @@ function typeWriter(element, text, speed = 100) {
 //         typeWriter(titleMain, '$NARC', 150);
 //     }
 // });
+
+// Meme submission modal functions
+function openMemeSubmission() {
+  document.getElementById('memeModal').style.display = 'flex';
+}
+
+function closeMemeSubmission() {
+  document.getElementById('memeModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('memeModal');
+  if (event.target === modal) {
+    closeMemeSubmission();
+  }
+});
+
+// Add meme like functionality
+document.querySelectorAll('.meme-like').forEach(button => {
+  button.addEventListener('click', function() {
+    const currentLikes = parseInt(this.textContent.match(/\d+/) || 0);
+    this.textContent = `❤️ ${currentLikes + 1}`;
+    
+    // Add a quick animation
+    this.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1)';
+    }, 300);
+  });
+});
+
+// Add meme share functionality
+document.querySelectorAll('.meme-share').forEach(button => {
+  button.addEventListener('click', function() {
+    alert('Share functionality would be implemented here!');
+  });
+});
+
+// Add a fun Easter egg for memecoin vibe
+document.addEventListener('keydown', function(e) {
+  // Easter egg: Press "M" for a surprise meme effect
+  if (e.key === 'm' || e.key === 'M') {
+    document.body.classList.add('meme-mode');
+    setTimeout(() => {
+      document.body.classList.remove('meme-mode');
+    }, 2000);
+  }
+});
+
+// Add meme mode styles
+const memeModeStyles = document.createElement('style');
+memeModeStyles.textContent = `
+  @keyframes rainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+  
+  .meme-mode {
+    animation: rainbow 1s linear infinite;
+  }
+  
+  .meme-mode .floating-element {
+    animation-duration: 0.5s !important;
+  }
+`;
+document.head.appendChild(memeModeStyles);
