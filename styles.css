@@ -1769,3 +1769,128 @@ input:focus {
     grid-template-columns: 1fr;
   }
 }
+
+/* Tokenomics Section - Responsive */
+.whitepaper-section.tokenomics-detailed {
+    padding: 2rem 1rem;
+    margin: 1rem 0;
+}
+
+.tokenomics-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.tokenomics-chart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tokenomics-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tokenomics-overview {
+    width: 100%;
+}
+
+.token-info-card {
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.token-info-card h4 {
+    color: #6366f1;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.token-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row .label {
+    color: #a1a1aa;
+    font-weight: 500;
+    flex: 1;
+}
+
+.detail-row .value {
+    color: #ffffff;
+    font-weight: 600;
+    flex: 1;
+    text-align: right;
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+    .tokenomics-grid {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .tokenomics-chart {
+        width: 50%;
+    }
+    
+    .tokenomics-overview {
+        width: 45%;
+    }
+}
+
+@media (max-width: 767px) {
+    .whitepaper-section.tokenomics-detailed {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .token-info-card {
+        padding: 1rem;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .detail-row .value {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .token-info-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .detail-row {
+        font-size: 0.9rem;
+    }
+}
