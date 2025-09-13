@@ -699,36 +699,89 @@ body {
   border: 1px solid var(--accent-orange);
 }
 
-/* Tokenomics Section */
-.tokenomics {
-  padding: 8rem 0;
-  background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.8) 100%);
-}
-
-.tokenomics-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+/* Tokenomics Section - Responsive Fix */
+.tokenomics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   align-items: center;
 }
 
+.tokenomics-chart {
+  width: 100%;
+  order: 1; /* This ensures the chart comes first */
+}
+
 .tokenomics-image {
-  max-width: 100%;
+  max-width: 200%;
   height: auto;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transition: var(--transition);
 }
 
-.tokenomics-image:hover {
-  transform: scale(1.02);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), var(--glow-primary);
+@media (max-width: 820px) {
+  .tokenomics-image {
+    max-width: 100%;
+  }
+}
+.tokenomics-overview {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 100%;
+  order: 2; /* This ensures the overview comes second */
 }
 
-.tokenomics-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* .token-info-card {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+} */
+
+/* For larger screens, use side-by-side layout */
+@media (min-width: 992px) {
+  .tokenomics-grid {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+  
+  .tokenomics-chart {
+    width: 50%;
+  }
+  
+  .tokenomics-overview {
+    width: 45%;
+  }
+}
+
+/* For smaller screens, adjust spacing */
+@media (max-width: 768px) {
+  .whitepaper-section.tokenomics-detailed {
+    padding: 2rem 1rem;
+  }
+  
+  .token-info-card {
+    padding: 1.2rem;
+  }
+  
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+  
+  .detail-row .value {
+    text-align: left;
+  }
 }
 
 .distribution-grid {
@@ -1323,10 +1376,24 @@ input:focus {
 }
 
 .token-info-card {
+  width: 100%;
+  max-width: 100%;
   background: rgba(139, 92, 246, 0.1);
   border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 12px;
   padding: 24px;
+  box-sizing: border-box; /* This ensures padding is included in the width */
+}
+
+/* If it's inside a container with padding, you might need to adjust */
+.tokenomics-overview {
+  width: 100%;
+}
+
+/* If there are any other constraints, override them */
+.token-info-card {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .token-info-card h4 {
@@ -1364,26 +1431,6 @@ input:focus {
   font-weight: 600;
 }
 
-.distribution-breakdown h4 {
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.distribution-items {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.distribution-item {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 8px;
-  padding: 16px;
-}
-
 .item-header {
   display: flex;
   align-items: center;
@@ -1391,19 +1438,7 @@ input:focus {
   margin-bottom: 8px;
 }
 
-.color-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
 
-.color-indicator.treasury {
-  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-}
-
-.color-indicator.airdrop {
-  background: linear-gradient(135deg, #10b981, #059669);
-}
 
 .item-name {
   color: #ffffff;
@@ -1768,133 +1803,4 @@ input:focus {
   .memes-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* Tokenomics Section - Responsive Layout */
-.whitepaper-section.tokenomics-detailed {
-    padding: 2rem 1rem;
-    margin: 1rem 0;
-}
-
-.tokenomics-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.tokenomics-chart {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    order: 1; /* This will place the chart first */
-}
-
-.tokenomics-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.tokenomics-overview {
-    width: 100%;
-    order: 2; /* This will place the overview second */
-}
-
-.token-info-card {
-    background: rgba(26, 26, 26, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem;
-    backdrop-filter: blur(10px);
-}
-
-.token-info-card h4 {
-    color: #6366f1;
-    margin-bottom: 1.2rem;
-    font-size: 1.3rem;
-    text-align: center;
-}
-
-.token-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.detail-row:last-child {
-    border-bottom: none;
-}
-
-.detail-row .label {
-    color: #a1a1aa;
-    font-weight: 500;
-    flex: 1;
-}
-
-.detail-row .value {
-    color: #ffffff;
-    font-weight: 600;
-    flex: 1;
-    text-align: right;
-}
-
-/* Media Queries for Responsiveness */
-@media (min-width: 768px) {
-    .tokenomics-grid {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    
-    .tokenomics-chart {
-        width: 50%;
-        order: 1; /* Keep chart first on desktop too */
-    }
-    
-    .tokenomics-overview {
-        width: 45%;
-        order: 2; /* Keep overview second on desktop */
-    }
-}
-
-@media (max-width: 767px) {
-    .whitepaper-section.tokenomics-detailed {
-        padding: 1.5rem 0.5rem;
-    }
-    
-    .token-info-card {
-        padding: 1rem;
-    }
-    
-    .detail-row {
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-    
-    .detail-row .value {
-        text-align: left;
-    }
-}
-
-@media (max-width: 480px) {
-    .section-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
-    
-    .token-info-card h4 {
-        font-size: 1.1rem;
-    }
-    
-    .detail-row {
-        font-size: 0.9rem;
-    }
 }

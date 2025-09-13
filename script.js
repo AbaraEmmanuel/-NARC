@@ -85,12 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (statNumber && !statNumber.classList.contains("animated")) {
             statNumber.classList.add("animated")
             const text = statNumber.textContent
-            if (text.includes("1B")) {
-              animateCounter(statNumber, 1000000000)
-              setTimeout(() => {
-                statNumber.textContent = "1B"
-              }, 2000)
-            } else if (text.includes("5")) {
+            if (text.includes("5")) {
               animateCounter(statNumber, 5)
             }
           }
