@@ -1770,7 +1770,7 @@ input:focus {
   }
 }
 
-/* Tokenomics Section - Responsive */
+/* Tokenomics Section - Responsive Layout */
 .whitepaper-section.tokenomics-detailed {
     padding: 2rem 1rem;
     margin: 1rem 0;
@@ -1786,6 +1786,7 @@ input:focus {
     width: 100%;
     display: flex;
     justify-content: center;
+    order: 1; /* This will place the chart first */
 }
 
 .tokenomics-image {
@@ -1797,6 +1798,7 @@ input:focus {
 
 .tokenomics-overview {
     width: 100%;
+    order: 2; /* This will place the overview second */
 }
 
 .token-info-card {
@@ -1853,10 +1855,12 @@ input:focus {
     
     .tokenomics-chart {
         width: 50%;
+        order: 1; /* Keep chart first on desktop too */
     }
     
     .tokenomics-overview {
         width: 45%;
+        order: 2; /* Keep overview second on desktop */
     }
 }
 
