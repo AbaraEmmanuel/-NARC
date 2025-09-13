@@ -24,16 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
+  // Navbar background on scroll
   window.addEventListener("scroll", () => {
     const navbar = document.querySelector(".navbar")
     if (window.scrollY > 100) {
-      navbar.style.background = "rgba(0, 0, 0, 0.95)"
-      navbar.style.boxShadow = "0 2px 20px rgba(0, 255, 255, 0.3)"
-      navbar.style.borderBottom = "1px solid rgba(0, 255, 255, 0.5)"
+      navbar.style.background = "rgba(10, 10, 10, 0.98)"
+      navbar.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.3)"
     } else {
-      navbar.style.background = "rgba(0, 0, 0, 0.9)"
+      navbar.style.background = "rgba(10, 10, 10, 0.95)"
       navbar.style.boxShadow = "none"
-      navbar.style.borderBottom = "1px solid rgba(0, 255, 255, 0.3)"
     }
   })
 
@@ -52,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }, observerOptions)
 
-  document.querySelectorAll(".about-card, .timeline-item, .social-card, .feature-card").forEach((el) => {
+  // Observe elements for animation
+  document.querySelectorAll(".about-card, .feature-card, .timeline-item, .social-card").forEach((el) => {
     el.style.opacity = "0"
     el.style.transform = "translateY(30px)"
     el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
@@ -97,77 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     },
-    { threshold: 0.5 },
+    { threshold: 0.5 }
   )
 
-  document.querySelectorAll(".stat").forEach((stat) => {
+  document.querySelectorAll(".stat-card").forEach((stat) => {
     statsObserver.observe(stat)
   })
-
-  function animateLiveTicker() {
-    const marketCapElement = document.getElementById("marketCap")
-    const holdersElement = document.getElementById("holders")
-    const volumeElement = document.getElementById("volume")
-
-    if (marketCapElement && holdersElement && volumeElement) {
-      setInterval(() => {
-        // Simulate realistic market data fluctuations
-        const baseMarketCap = 1200000
-        const marketCapVariation = (Math.random() - 0.5) * 100000
-        const newMarketCap = Math.max(baseMarketCap + marketCapVariation, 500000)
-        marketCapElement.textContent = `$${(newMarketCap / 1000000).toFixed(2)}M`
-
-        const baseHolders = 2847
-        const holdersVariation = Math.floor((Math.random() - 0.3) * 20)
-        const newHolders = Math.max(baseHolders + holdersVariation, 2000)
-        holdersElement.textContent = newHolders.toLocaleString()
-
-        const baseVolume = 156000
-        const volumeVariation = (Math.random() - 0.5) * 50000
-        const newVolume = Math.max(baseVolume + volumeVariation, 50000)
-        volumeElement.textContent = `$${(newVolume / 1000).toFixed(0)}K`
-        
-        // Add flash effect on update
-        [marketCapElement, holdersElement, volumeElement].forEach((el) => {
-          el.style.color = "#ffff00"
-          el.style.textShadow = "0 0 15px #ffff00"
-          setTimeout(() => {
-            el.style.color = "var(--primary-neon)"
-            el.style.textShadow = "var(--glow-primary)"
-          }, 200)
-        })
-      }, 8000) // Update every 8 seconds
-    }
-  }
-
-  // Start ticker animation after page load
-  setTimeout(animateLiveTicker, 3000)
 
   // Add hover effects to timeline items
   document.querySelectorAll(".timeline-item").forEach((item) => {
     item.addEventListener("mouseenter", function () {
-      this.style.transform = "translateX(10px)"
+      this.style.transform = "translateX(5px)"
     })
 
     item.addEventListener("mouseleave", function () {
       this.style.transform = "translateX(0)"
     })
-  })
-
-  // Floating elements animation enhancement
-  const floatingElements = document.querySelectorAll(".floating-element")
-  floatingElements.forEach((element, index) => {
-    element.style.animationDelay = `${index * 0.5}s`
-
-    // Add random movement
-    setInterval(
-      () => {
-        const randomX = Math.random() * 20 - 10
-        const randomY = Math.random() * 20 - 10
-        element.style.transform += ` translate(${randomX}px, ${randomY}px)`
-      },
-      3000 + index * 1000,
-    )
   })
 
   // Add click effect to buttons
@@ -203,11 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     .ripple {
       position: absolute;
       border-radius: 50%;
-      background: rgba(0, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.3);
       transform: scale(0);
       animation: ripple-animation 0.6s linear;
       pointer-events: none;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
     }
     
     @keyframes ripple-animation {
@@ -215,22 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
         transform: scale(4);
         opacity: 0;
       }
-    }
-    
-    .mobile-menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-    
-    .mobile-menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: var(--primary-neon);
-      margin: 3px 0;
-      transition: 0.3s;
-      box-shadow: 0 0 5px var(--primary-neon);
     }
     
     .mobile-menu-toggle.active span:nth-child(1) {
@@ -244,123 +172,44 @@ document.addEventListener("DOMContentLoaded", () => {
     .mobile-menu-toggle.active span:nth-child(3) {
       transform: rotate(45deg) translate(-5px, -6px);
     }
-    
-    @media (max-width: 768px) {
-      .mobile-menu-toggle {
-        display: flex;
-      }
-      
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        padding: 2rem 0;
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        border-top: 1px solid var(--border-neon);
-        backdrop-filter: blur(20px);
-      }
-      
-      .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-      }
-      
-      .nav-links a {
-        padding: 1rem 2rem;
-        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-      }
-    }
   `
   document.head.appendChild(style)
 
-  // Add glitch effect to title
-  function addGlitchEffect() {
-    const glitchElement = document.querySelector(".glitch")
-    if (glitchElement) {
-      setInterval(
-        () => {
-          glitchElement.style.animation = "none"
-          setTimeout(() => {
-            glitchElement.style.animation = ""
-          }, 100)
-        },
-        5000 + Math.random() * 10000,
-      ) // Random glitch every 5-15 seconds
-    }
-  }
+  // Parallax effect on scroll
+  let ticking = false
 
-  addGlitchEffect()
+  function updateParallax() {
+    const scrolled = window.pageYOffset
+    const parallaxElements = document.querySelectorAll(".bg-element, .gradient-orb")
 
-  // Enhance matrix rain with random characters
-  function enhanceMatrixRain() {
-    const matrixColumns = document.querySelectorAll(".matrix-column")
-    matrixColumns.forEach((column, index) => {
-      // Add random characters
-      const chars = "01NARC$₿Ξ◊⟐"
-      setInterval(
-        () => {
-          const randomChar = chars[Math.floor(Math.random() * chars.length)]
-          column.textContent = randomChar
-          column.style.color = `hsl(${180 + Math.random() * 60}, 100%, ${50 + Math.random() * 50}%)`
-        },
-        200 + index * 100,
-      )
+    parallaxElements.forEach((element, index) => {
+      const speed = 0.2 + index * 0.05
+      const yPos = -(scrolled * speed)
+      element.style.transform = `translate3d(0, ${yPos}px, 0)`
     })
+
+    ticking = false
   }
 
-  enhanceMatrixRain()
-
-  // Initialize meme gallery swiper
-  function initMemeSwiper() {
-    if (document.querySelector('.memeSwiper')) {
-      const memeSwiper = new Swiper('.memeSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-          640: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 3,
-          },
-        },
-      });
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax)
+      ticking = true
     }
-  }
+  })
 
-  // Initialize meme swiper
-  initMemeSwiper();
+  // Close menu with Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const activeMenu = document.querySelector(".nav-links.active")
+      const activeToggle = document.querySelector(".mobile-menu-toggle.active")
 
-  // Handle meme form submission
-  const memeForm = document.getElementById('memeForm');
-  if (memeForm) {
-    memeForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Here you would typically handle the form submission to a server
-      alert('Meme submitted! (This would connect to a backend in production)');
-      closeMemeSubmission();
-      memeForm.reset();
-    });
-  }
+      if (activeMenu && activeToggle) {
+        activeMenu.classList.remove("active")
+        activeToggle.classList.remove("active")
+      }
+    }
+  })
 })
 
 // Contract address copy function
@@ -412,14 +261,14 @@ function showCopyNotification(message) {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
-    color: var(--background-dark);
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    color: white;
     padding: 1rem 2rem;
-    border-radius: 10px;
-    font-weight: 700;
+    border-radius: 12px;
+    font-weight: 600;
     z-index: 10000;
     animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
   `
 
   document.body.appendChild(notification)
@@ -430,29 +279,6 @@ function showCopyNotification(message) {
     }
   }, 3000)
 }
-
-// Parallax effect on scroll
-let ticking = false
-
-function updateParallax() {
-  const scrolled = window.pageYOffset
-  const parallaxElements = document.querySelectorAll(".floating-element, .cartel-element")
-
-  parallaxElements.forEach((element, index) => {
-    const speed = 0.3 + index * 0.05
-    const yPos = -(scrolled * speed)
-    element.style.transform = `translate3d(0, ${yPos}px, 0)`
-  })
-
-  ticking = false
-}
-
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    requestAnimationFrame(updateParallax)
-    ticking = true
-  }
-})
 
 // Add notification animation styles
 const notificationStyles = document.createElement("style")
@@ -480,106 +306,3 @@ notificationStyles.textContent = `
   }
 `
 document.head.appendChild(notificationStyles)
-
-// Close menu with Escape key
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    const activeMenu = document.querySelector(".nav-links.active")
-    const activeToggle = document.querySelector(".mobile-menu-toggle.active")
-
-    if (activeMenu && activeToggle) {
-      activeMenu.classList.remove("active")
-      activeToggle.classList.remove("active")
-    }
-  }
-})
-
-// Typing effect for hero title (optional)
-function typeWriter(element, text, speed = 100) {
-  let i = 0
-  element.textContent = ""
-
-  function type() {
-    if (i < text.length) {
-      element.textContent += text.charAt(i)
-      i++
-      setTimeout(type, speed)
-    }
-  }
-  type()
-}
-
-// Uncomment to enable typing effect
-// window.addEventListener('load', function() {
-//     const titleMain = document.querySelector('.title-main');
-//     if (titleMain) {
-//         typeWriter(titleMain, '$NARC', 150);
-//     }
-// });
-
-// Meme submission modal functions
-function openMemeSubmission() {
-  document.getElementById('memeModal').style.display = 'flex';
-}
-
-function closeMemeSubmission() {
-  document.getElementById('memeModal').style.display = 'none';
-}
-
-// Close modal when clicking outside
-window.addEventListener('click', function(event) {
-  const modal = document.getElementById('memeModal');
-  if (event.target === modal) {
-    closeMemeSubmission();
-  }
-});
-
-// Add meme like functionality
-document.querySelectorAll('.meme-like').forEach(button => {
-  button.addEventListener('click', function() {
-    const currentLikes = parseInt(this.textContent.match(/\d+/) || 0);
-    this.textContent = `❤️ ${currentLikes + 1}`;
-    
-    // Add a quick animation
-    this.style.transform = 'scale(1.2)';
-    setTimeout(() => {
-      this.style.transform = 'scale(1)';
-    }, 300);
-  });
-});
-
-// Add meme share functionality
-document.querySelectorAll('.meme-share').forEach(button => {
-  button.addEventListener('click', function() {
-    alert('Share functionality would be implemented here!');
-  });
-});
-
-// Add a fun Easter egg for memecoin vibe
-document.addEventListener('keydown', function(e) {
-  // Easter egg: Press "M" for a surprise meme effect
-  if (e.key === 'm' || e.key === 'M') {
-    document.body.classList.add('meme-mode');
-    setTimeout(() => {
-      document.body.classList.remove('meme-mode');
-    }, 2000);
-  }
-});
-
-// Add meme mode styles
-const memeModeStyles = document.createElement('style');
-memeModeStyles.textContent = `
-  @keyframes rainbow {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
-  
-  .meme-mode {
-    animation: rainbow 1s linear infinite;
-  }
-  
-  .meme-mode .floating-element {
-    animation-duration: 0.5s !important;
-  }
-`;
-document.head.appendChild(memeModeStyles);
