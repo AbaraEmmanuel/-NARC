@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
+  
   // Add ripple effect styles
   const style = document.createElement("style")
   style.textContent = `
@@ -209,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Contract address copy function
 function copyContract() {
-  const contractText = "0x1234567890abcdef1234567890abcdef12345678" // Replace with actual contract
+  const contractText = "coming soon..." // Replace with actual contract
 
   if (navigator.clipboard) {
     navigator.clipboard
